@@ -1,2 +1,2 @@
-# Partners: Derek, Agam
+# Partners: Derek Kirschbaum, Agam Makkar
 
