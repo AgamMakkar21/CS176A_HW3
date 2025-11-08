@@ -119,10 +119,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    printf("--- %s ping statistics ---\n", server_host_ip);
-
-    //logic to calculate statistics
     double loss_percent = 0.0;
+    if(received == 0) {
+        printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
+        return 0;
+    }
+
+    printf("--- %s ping statistics ---\n", server_host_ip);
+    
     if (transmitted > 0) {
         loss_percent = ((double)(transmitted - received) / transmitted) * 100.0;
     }
