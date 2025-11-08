@@ -120,10 +120,6 @@ int main(int argc, char *argv[]) {
     }
 
     double loss_percent = 0.0;
-    if(received == 0) {
-        printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
-        return 0;
-    }
 
     printf("--- %s ping statistics ---\n", server_host_ip);
     
@@ -145,9 +141,12 @@ int main(int argc, char *argv[]) {
         avg_rtt = 0.0;
     }
 
-    printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
+    
     if(received > 0) {
+        printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
         printf(" rtt min/avg/max = %.3f %.3f %.3f ms\n",min_rtt, avg_rtt, max_rtt);
+    } else {
+        printf("%d packets transmitted, %d received, %.0f%% packet loss\n", transmitted, received, loss_percent);
     }
     freeaddrinfo(server_info);
     close(sockfd);
