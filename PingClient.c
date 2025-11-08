@@ -141,9 +141,8 @@ int main(int argc, char *argv[]) {
         avg_rtt = 0.0;
     }
 
-    printf("%d packets transmitted, %d received, %.0f%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n",
-           transmitted, received, loss_percent, min_rtt, avg_rtt, max_rtt);
-
+    printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
+    printf(" rtt min/avg/max = %.3f %.3f %.3f ms\n",min_rtt, avg_rtt, max_rtt);
     freeaddrinfo(server_info);
     close(sockfd);
     return 0;
