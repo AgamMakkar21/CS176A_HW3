@@ -57,7 +57,6 @@ int main(int argc, char *argv[]) {
     double rtt_max = 0.0;
     double rtt_sum = 0.0;
 
-    //set buffers
     char send_buffer[1024];
     char recv_buffer[1024];
 
@@ -68,17 +67,9 @@ int main(int argc, char *argv[]) {
 
         int msg_len = snprintf(send_buffer, sizeof(send_buffer), "PING %d %ld.%06ld", seq,
                                (long)send_time.tv_sec, (long)send_time.tv_usec);
-        if (msg_len < 0 || msg_len >= (int)sizeof(send_buffer)) {
-            fprintf(stderr, "Message formatting error\n");
-            break;
-        }
 
         int sent = sendto(sockfd, send_buffer, msg_len, 0, server_info->ai_addr, server_info->ai_addrlen);
-        if (sent < 0) {
-            perror("sendto");
-            break;
-        }
-        ++transmitted;
+        transmitted++;
 
         struct sockaddr_storage reply_addr;
         socklen_t reply_addr_len = sizeof(reply_addr);
@@ -102,7 +93,7 @@ int main(int argc, char *argv[]) {
                 rtt_max = rtt;
             }
             rtt_sum += rtt;
-            ++received;
+            received++;
 
             char host_buffer[NI_MAXHOST];
             if (getnameinfo((struct sockaddr *)&reply_addr, reply_addr_len,
@@ -141,7 +132,6 @@ int main(int argc, char *argv[]) {
         avg_rtt = 0.0;
     }
 
-    
     if(received > 0) {
         printf("%d packets transmitted, %d received, %.0f%% packet loss", transmitted, received, loss_percent);
         printf(" rtt min/avg/max = %.3f %.3f %.3f ms\n",min_rtt, avg_rtt, max_rtt);
